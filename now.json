@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "name": "plugin-dialpad",
+  "alias": "plugin-dialpad",
+  "builds": [
+    { "src": "/runtime/express-shim.js", "use": "@now/node" },
+    { "src": "/runtime/functions/*.js", "use": "@now/node" },
+    { "src": "/runtime/assets/*", "use": "@now/static" },
+    { "src": "/package.json", "use": "@now/static-build", "config": { "distDir": "build" } }
+  ],
+  "routes": [
+    { "src": "/plugins.json", "dest": "/plugins.json" },
+    { "src": "/assets/(.*)", "dest": "/runtime/assets/$1" },
+    { "src": "/plugin-dialpad.js", "dest": "/plugin-dialpad.js" },
+    { "src": "/api/(.*)", "dest": "/runtime/express-shim.js" }
+  ],
+  "env": {
+    "TWILIO_ACCOUNT_SID": "@dialpad-twilio_account_sid",
+    "TWILIO_AUTH_TOKEN": "@dialpad-twilio_auth_token",
+    "TWILIO_WORKSPACE_SID": "@dialpad-twilio_workspace_sid",
+    "TWILIO_WORKFLOW_SID": "@dialpad-twilio_workflow_sid"
+  }
+}

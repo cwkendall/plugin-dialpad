@@ -17,7 +17,7 @@ exports.handler = async function(context, event, callback) {
   response.appendHeader('Content-Type', 'application/json');
   response.appendHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  const authed = await validateToken(event.Token, context.ACCOUNT_SID, context.AUTH_TOKEN);
+  const authed = await validateToken(event.Token, context.TWILIO_ACCOUNT_SID, context.TWILIO_AUTH_TOKEN);
   if (typeof authed !== 'object' || !authed.data || authed.data.valid !== true) {
     console.log('couldn\'t auth', event.Token);
     return callback(null, response);

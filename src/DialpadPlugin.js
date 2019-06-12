@@ -1,4 +1,4 @@
-import { FlexPlugin } from 'flex-plugin';
+import { getRuntimeUrl, FlexPlugin } from 'flex-plugin';
 import React from 'react';
 import DialPad from './DialPad';
 import DialerButton from './DialerButton';
@@ -10,6 +10,9 @@ export default class DialpadPlugin extends FlexPlugin {
   name = 'DialpadPlugin';
 
   init(flex, manager) {
+    
+    const runtime = getRuntimeUrl(); //manager.serviceConfiguration.runtime_domain;
+    const domain = runtime.replace(/^https?:\/\//, "") + "/api";
 
     // get the JWE for authenticating the worker in our Function
     const jweToken = manager.store.getState().flex.session.ssoTokenPayload.token
@@ -37,17 +40,17 @@ export default class DialpadPlugin extends FlexPlugin {
     });
 
     //adds the dialer view
-    flex.ViewCollection.Content.add(<flex.View name='dialer' key='dialpad1'><DialPad key='dialpad2' insightsClient={manager.insightsClient} runtimeDomain={manager.serviceConfiguration.runtime_domain} jweToken={jweToken}/></flex.View>);
-    flex.CallCanvas.Content.add(<ConferenceButton key='conference' insightsClient={manager.insightsClient} runtimeDomain={manager.serviceConfiguration.runtime_domain} jweToken={jweToken}/>);
+    flex.ViewCollection.Content.add(<flex.View name='dialer' key='dialpad1'><DialPad key='dialpad2' insightsClient={manager.insightsClient} runtimeDomain={domain} jweToken={jweToken}/></flex.View>);
+    flex.CallCanvas.Content.add(<ConferenceButton key='conference' insightsClient={manager.insightsClient} runtimeDomain={domain} jweToken={jweToken}/>);
 
     //adds the dial button to SMS
-    flex.TaskCanvasHeader.Content.add(<CallButton key='callbutton' runtimeDomain={manager.serviceConfiguration.runtime_domain} jweToken={jweToken}/>);
+    flex.TaskCanvasHeader.Content.add(<CallButton key='callbutton' runtimeDomain={domain} jweToken={jweToken}/>);
 
     //create custom task TaskChannel
     const outboundVoiceChannel = flex.DefaultTaskChannels.createCallTaskChannel('custom1',
       (task) => task.taskChannelUniqueName === 'custom1');
     flex.TaskChannels.register(outboundVoiceChannel);
 
-    registerCustomActions(manager.serviceConfiguration.runtime_domain, jweToken);
+    registerCustomActions(domain, jweToken);
   }
 }
