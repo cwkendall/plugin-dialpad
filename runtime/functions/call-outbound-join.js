@@ -1,4 +1,4 @@
-/* create a Twilio Function from this file 
+/* create a Twilio Function from this file
 
 name: Flex Dialpad Call Outbound Join
 path /call-outbound-join
@@ -33,7 +33,7 @@ const addParticipantToConference = (client, context, conferenceSid, taskSid, to,
               to: to,
               direction: 'outbound',
               name: from,
-              from: 'Enter a Twilio Number here',
+              from: context.DIALPAD_PHONE_NUMBER,
               targetWorker: to,
               autoAnswer: 'false',
               conferenceSid: taskSid,

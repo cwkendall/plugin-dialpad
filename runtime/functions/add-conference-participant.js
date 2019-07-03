@@ -39,8 +39,8 @@ exports.handler = async function(context, event, callback) {
                 {
                   to: event.To,
                   direction: 'outbound',
-                  name: 'Your company name here',
-                  from: 'Your Twilio Number',
+                  name: context.DIALPAD_IDENTITY,
+                  from: context.DIALPAD_PHONE_NUMBER,
                   targetWorker: event.to,
                   url: context.RUNTIME_DOMAIN,
                   autoAnswer: 'false',

@@ -18,6 +18,8 @@
     "TWILIO_ACCOUNT_SID": "@dialpad-twilio_account_sid",
     "TWILIO_AUTH_TOKEN": "@dialpad-twilio_auth_token",
     "TWILIO_WORKSPACE_SID": "@dialpad-twilio_workspace_sid",
-    "TWILIO_WORKFLOW_SID": "@dialpad-twilio_workflow_sid"
+    "TWILIO_WORKFLOW_SID": "@dialpad-twilio_workflow_sid",
+    "DIALPAD_PHONE_NUMBER": "@dialpad-dialpad_phone_number",
+    "DIALPAD_IDENTITY": "@dialpad-dialpad_identity"
   }
 }
