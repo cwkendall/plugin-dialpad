@@ -14,8 +14,7 @@ export default class DialpadPlugin extends FlexPlugin {
 
   init(flex, manager) {
     
-    const runtime = getRuntimeUrl(); //manager.serviceConfiguration.runtime_domain;
-    const domain = runtime.replace(/^https?:\/\//, "") + "/api";
+    const runtime_domain = getRuntimeUrl().replace(/^https?:\/\//, "") + "/api"; //manager.serviceConfiguration.runtime_domain;
 
     // get the JWE for authenticating the worker in our Function
     const jweToken = manager.store.getState().flex.session.ssoTokenPayload.token;
@@ -43,18 +42,18 @@ export default class DialpadPlugin extends FlexPlugin {
     });
 
     //adds the dialer view
-    flex.ViewCollection.Content.add(<flex.View name='dialer' key='dialpad1'><Dialpad key='dialpad2' insightsClient={manager.insightsClient} runtimeDomain={domain} jweToken={jweToken} mode='dialPad'/></flex.View>);
-    flex.CallCanvas.Content.add(<Conference key='conference' insightsClient={manager.insightsClient} runtimeDomain={manager.serviceConfiguration.runtime_domain} jweToken={jweToken}/>);
+    flex.ViewCollection.Content.add(<flex.View name='dialer' key='dialpad1'><Dialpad key='dialpad2' insightsClient={manager.insightsClient} runtimeDomain={runtime_domain} jweToken={jweToken} mode='dialPad'/></flex.View>);
+    flex.CallCanvas.Content.add(<Conference key='conference' insightsClient={manager.insightsClient} runtimeDomain={runtime_domain} jweToken={jweToken}/>);
 
     //adds the dial button to SMS
-    flex.TaskCanvasHeader.Content.add(<CallButton key='callbutton' runtimeDomain={domain} jweToken={jweToken}/>);
+    flex.TaskCanvasHeader.Content.add(<CallButton key='callbutton' runtimeDomain={runtime_domain} jweToken={jweToken}/>);
 
     //create custom task TaskChannel
     const outboundVoiceChannel = flex.DefaultTaskChannels.createCallTaskChannel('custom1',
       (task) => task.taskChannelUniqueName === 'custom1');
     flex.TaskChannels.register(outboundVoiceChannel);
 
-    registerCustomActions(domain, jweToken);
+    registerCustomActions(runtime_domain, jweToken);
 
     //Add custom redux store
     manager.store.addReducer('dialpad', dialpadReducer);
