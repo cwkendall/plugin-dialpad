@@ -9,8 +9,13 @@ import Dialpad from './Dialpad';
 import dialpadReducer from './reducers/DialpadReducer.js';
 import registerCustomActions from './CustomActions';
 
+const PLUGIN_NAME = 'DialpadPlugin';
+
+
 export default class DialpadPlugin extends FlexPlugin {
-  name = 'DialpadPlugin';
+  constructor() {
+    super(PLUGIN_NAME);
+  }
 
   init(flex, manager) {
     

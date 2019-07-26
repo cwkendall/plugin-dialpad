@@ -16,7 +16,7 @@ const dialerContainer = css`
   flex-direction: column;
   height: 500px;
   width: 300px;
-  background-color: #FFFFFF;
+  background: transparent;
 `
 
 const dtmf = css`

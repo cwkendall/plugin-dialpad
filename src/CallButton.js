@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Actions } from '@twilio/flex-ui';
+import { TaskHelper, Actions } from '@twilio/flex-ui';
 import { css } from 'emotion'
 
 import Call from '@material-ui/icons/Call';
@@ -21,7 +21,7 @@ const callbutton = css`
 export class CallButton extends React.Component {
 
   callButton = (props) => {
-    if (this.props.task.channelType !== 'sms') { //Only render the call button for SMS
+    if (!TaskHelper.isChatBasedTask(this.props.task)) { //Only render the call button for SMS
       return <div/>;
     } else {
 

@@ -14,14 +14,14 @@
     "now-dev": "npm run start"
   },
   "devDependencies": {
-    "@twilio/flex-ui": "^1.0.0"
+    "@twilio/flex-ui": "^1.11.2"
   },
   "dependencies": {
-    "emotion": "^10.0.9",
-    "@craco/craco": "^5.0.2",
+    "@craco/craco": "^5.2.4",
     "axios": "*",
-    "flex-plugin": "^2",
-    "craco-config-flex-plugin": "^2",
+    "craco-config-flex-plugin": "^2.9.0",
+    "emotion": "^10.0.14",
+    "flex-plugin": "^2.9.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "^3.0.1",
